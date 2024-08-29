@@ -61,7 +61,7 @@ npm install &>>$LOG_FILE
 
 cp /home/ec2-user/expense-shell/backend.service /etc/systemd/system/backend.service
 dnf install mysql -y &>>$LOG_FILE
-VALIDATION $> "mysql installation"
+VALIDATION $? "mysql installation"
 mysql -h db.devteck.xyz -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$LOG_FILE
 VALIDATION $? "validate schema loading"
 systemctl daemon-reload &>>$LOG_FILE

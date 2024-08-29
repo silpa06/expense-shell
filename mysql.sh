@@ -29,5 +29,16 @@ VALIDATION(){
 }
 echo "Script started executing at: $(date)" | tee -a $LOG_FILE
 CHECK_ROOT
-dnf install mysql-server -y & >> $LOG_FILE
-VALIDATION $? "MYSQL server installation"
+dnf list installed mysql-server
+if [ $? -ne 0 ]
+then 
+    echo "MYSQL server is not installed ..going to install"
+    dnf install mysql-server -y & >> $LOG_FILE
+    VALIDATION $? "MYSQL server installation"
+else 
+    echo "MYSQL server is already installed.. nothing to do"
+fi
+
+
+
+

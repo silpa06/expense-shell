@@ -71,7 +71,6 @@ VALIDATION $? "enabled backend"
 systemctl restart backend &>>$LOG_FILE
 VALIDATION $? "restarting backend"
 
-mysql -h db.devteck.xyz -uroot -pExpenseApp@1 -e 'show databases;'
 
 
 

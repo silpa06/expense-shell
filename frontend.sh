@@ -37,7 +37,7 @@ then
     dnf install nginx -y &>>$LOG_FILE
     VALIDATION $? "nginx installation"
 else
-    echo "nginx is already installed..$Y SKIPPING $N"
+    echo -e "nginx is already installed..$Y SKIPPING $N"
 fi
 
 systemctl enable nginx &>>$LOG_FILE

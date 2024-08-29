@@ -30,7 +30,7 @@ VALIDATION(){
 echo "Script started executing at: $(date)" | tee -a $LOG_FILE
 CHECK_ROOT
 
-dnf list installed nginx 
+dnf list installed nginx &>>$LOG_FILE 
 if [ $? -ne 0 ]
 then
     echo "nginx is not installed..going to install"
@@ -56,7 +56,7 @@ cd /usr/share/nginx/html
 unzip /tmp/frontend.zip &>>$LOG_FILE
 VALIDATION $? "extracted front end code"
 
-cp /home/ec2-user/expense-shell/expense.conf /etc/nginx/defaultd.d/expense.conf
+cp /home/ec2-user/expense-shell/expense.conf /etc/nginx/default.d/expense.conf
 VALIDATION $? "copied expense conf"
 
 systemctl restart nginx &>>$LOG_FILE

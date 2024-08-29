@@ -36,8 +36,25 @@ then
     dnf install mysql-server -y & >> $LOG_FILE
     VALIDATION $? "MYSQL server installation"
 else 
-    echo "MYSQL server is already installed.. nothing to do"
+    echo -e "$Y MYSQL server is already installed.. nothing to do $N" | tee $LOG_FILE
 fi
+
+systemctl enable mysqld &>>$LOG_FILE
+VALIDATION $? "Enabled mysql server is"
+
+systemctl start mysqld &>>$LOG_FILE
+VALIDATION $? "Started mysql server is"
+
+mysql -h db.devtek.xyz -u root -pExpenseApp@1 -e 'show databases;' &>>$LOG_FILE
+if [ $? -ne 0 ]
+then
+    echo "MYSQL server password is not setup.. setting now" &>>$LOG_FILE
+    mysql_secure_installation --set-root-pass ExpenseApp@1
+    VALIDATE $? "MYSQL setting up password is"
+else
+    echo -e "MYSQL server password is aready setup: $Y SKIPPING $N"
+fi
+
 
 
 

@@ -9,6 +9,7 @@ LOG_FOLDER="/var/log/expense"
 TIMESTAMP=$(date +%Y-%m-%d-%H-%M-%S)
 SCRIPT_NAME=$(echo $0 | cut -d "." -f1)
 LOG_FILE="$LOG_FOLDER/$SCRIPT_NAME-$TIMESTAMP.log"
+mkdir -p $LOG_FOLDER
 CHECK_ROOT(){
     if [ $USERID -ne 0 ]
     then
